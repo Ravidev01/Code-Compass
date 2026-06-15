@@ -1,117 +1,117 @@
-# CodeCompass
-
-### Navigate Your Repository's Past, Present, and Future with AI
-
-CodeCompass is an AI-powered repository intelligence platform that helps developers understand complex codebases through architecture analysis, repository evolution tracking, dependency intelligence, and future risk prediction.
-
-Built for the Microsoft Agents League Hackathon using Angular, .NET, and Microsoft AI technologies.
+# Track
+Creative Apps (GitHub Copilot)
 
 ---
 
-## Problem
+# Project Name
 
-Modern software systems are becoming increasingly complex.
-
-Developers spend significant time trying to understand:
-
-* Repository architecture
-* Dependency relationships
-* Historical code evolution
-* Technical debt accumulation
-* Future maintenance risks
-
-Traditional architecture diagrams and dependency graphs often become outdated and fail to provide actionable insights.
+CodeCompass
 
 ---
 
-## Solution
+# GitHub Username
 
-CodeCompass transforms repository analysis into an intelligent experience.
+Ravidev01
 
-Instead of simply visualizing code, CodeCompass helps developers answer:
+---
+
+# Repository URL
+
+[https://github.com/YOUR_USERNAME/codecompass](https://github.com/Ravidev01/Code-Compass)
+
+---
+
+# Project Description
+
+CodeCompass is an AI-powered repository intelligence platform that helps developers understand complex codebases through architecture analysis, repository evolution tracking, and future risk prediction.
+
+Modern repositories contain thousands of files, hundreds of dependencies, and years of architectural decisions. Developers often spend hours understanding unfamiliar codebases before they can make meaningful contributions.
+
+CodeCompass solves this problem by helping developers answer three critical questions:
 
 * Where did this codebase come from?
 * What is happening today?
-* Where is it heading tomorrow?
+* Where is it heading next?
 
-Using AI-powered reasoning, CodeCompass provides architecture intelligence, evolution analysis, and future recommendations.
+The platform analyzes repository structure, dependency relationships, and historical evolution to generate an interactive repository intelligence experience.
 
----
-
-## Features
+CodeCompass delivers four integrated experiences:
 
 ### Repository Analysis
 
-Analyze repositories using:
+Developers can analyze a GitHub repository URL or upload a project directly.
 
-* GitHub Repository URL
-* Project Upload
-
-Automatically extract:
+The system extracts:
 
 * Services
 * Dependencies
-* Repository Metrics
-* Health Indicators
+* Repository metrics
+* Health indicators
+* Risk factors
 
----
+### Architecture Intelligence
 
-### Architecture Map
+An interactive Architecture Map visualizes service relationships, dependency bottlenecks, coupling, and architectural complexity.
 
-Visualize repository structure and service relationships.
-
-Understand:
-
-* Critical Dependencies
-* Service Coupling
-* Dependency Bottlenecks
-* Architecture Complexity
-
----
+Developers can instantly identify critical services and understand how different parts of the system interact.
 
 ### Evolution Timeline
 
-Explore how the repository evolved over time.
+CodeCompass introduces a repository time-travel experience.
 
-Track:
+Developers can explore:
 
-* Service Growth
-* Dependency Changes
-* Technical Debt Trends
-* Architecture Evolution
+* Historical architecture changes
+* Dependency growth
+* Technical debt evolution
+* Repository health trends
 
----
+This transforms repository history into an understandable visual narrative.
+
+### AI Navigator Agent
+
+Powered by Microsoft AI Foundry, the AI Navigator acts as an intelligent software architect.
+
+Developers can ask:
+
+* What should I fix first?
+* Which services are risky?
+* Explain this dependency chain.
+* Predict future architecture problems.
+* Recommend refactoring opportunities.
+
+The AI Navigator reasons over repository context and provides actionable recommendations with architectural explanations.
 
 ### Future Insights
 
-Predict future repository risks using AI reasoning.
+CodeCompass forecasts future repository health using current architecture metrics and historical trends.
 
-Forecast:
+Developers can identify:
 
-* Technical Debt Growth
-* Dependency Risk
-* Architecture Stability
-* High-Risk Services
+* Technical debt growth
+* Architecture instability
+* Dependency risks
+* Future maintenance challenges
 
----
-
-### AI Navigator
-
-Powered by Microsoft AI technologies.
-
-Ask questions like:
-
-* What should I fix first?
-* Which service is most risky?
-* Explain this dependency chain.
-* Predict future architecture issues.
-* Recommend refactoring opportunities.
-
-The AI Navigator analyzes repository context and provides actionable recommendations.
+before they become costly engineering problems.
 
 ---
 
-## Architecture
+# Demo Video or Screenshots
+
+Demo Video:
+
+Include YouTube demo link here: 
+
+---
+
+# Primary Programming Language
+
+TypeScript
+
+---
+
+# Key Technologies Used
 
 Frontend
 
@@ -121,95 +121,123 @@ Frontend
 * TailwindCSS
 * PrimeNG
 
+AI
+* Microsoft AI Foundry
+
+Development
+
+* GitHub Copilot
+* VS Code
+* GitHub
+
+Visualization
+
+* Interactive Dependency Graphs
+* Timeline Engine
+
+---
+
+# Submission Type
+
+Individual
+
+---
+
+# Quick Setup Summary
+
+Clone repository
+
+git clone [https://github.com/YOUR_USERNAME/codecompass.git](https://github.com/Ravidev01/Code-Compass.git)
+
+Navigate to project
+
+cd codecompass
+
+Frontend
+
+npm install
+npm start
+
 Backend
 
-* ASP.NET Core
-* REST APIs
-* Repository Analysis Engine
+dotnet restore
+dotnet run
 
-AI Layer
+Open:
 
-* Microsoft AI Foundry
-* Azure OpenAI
-* AI Navigator Agent
+http://localhost:4200
 
----
+Paste a repository URL or upload a project and click Analyze Repository.
 
-## Application Flow
+Requirements:
 
-Repository Input
-
-↓
-
-Repository Analysis
-
-↓
-
-Architecture Intelligence
-
-↓
-
-Evolution Analysis
-
-↓
-
-Future Prediction
-
-↓
-
-AI Navigator Recommendations
+* Node.js 20+
+* Visual Studio Code
 
 ---
 
-## Use Cases
+# Technical Highlights
 
-### New Team Members
+### 1. Repository Evolution Intelligence
 
-Quickly understand unfamiliar repositories.
+Most repository tools focus only on the current state of the codebase.
 
-### Software Architects
+CodeCompass introduces a Past → Present → Future model that helps developers understand how architecture evolved and where it is likely to go next.
 
-Analyze dependency relationships and system complexity.
+### 2. AI Navigator Agent
 
-### Engineering Managers
+The AI Navigator reasons over repository context and architectural relationships.
 
-Track repository health and technical debt trends.
+Instead of simply displaying metrics, it generates actionable recommendations and explains architectural decisions.
 
-### Development Teams
+### 3. Architecture Intelligence Layer
 
-Identify risks before they become production issues.
+The platform converts repository structure into an interactive architecture graph that highlights service relationships, dependency bottlenecks, and risk areas.
 
----
+### 4. Future Risk Prediction
 
-## Future Roadmap
+CodeCompass forecasts technical debt growth and architecture instability using repository metrics and historical evolution patterns.
 
-* Live GitHub Integration
-* Pull Request Analysis
-* Multi-Repository Intelligence
-* Architecture Change Detection
-* Team Collaboration Insights
-* Automated Refactoring Recommendations
-* Multi-Agent Reasoning System
+### 5. Developer Experience
+
+The application combines architecture visualization, AI reasoning, and repository analytics into a single workflow that helps developers understand unfamiliar systems faster.
 
 ---
 
-## Why CodeCompass?
+# Challenges & Learnings
 
-Most tools show the current state of a repository.
+Challenges:
 
-CodeCompass goes further by helping developers understand:
+* Designing a repository visualization that remains understandable for large projects.
+* Creating meaningful AI recommendations from repository metadata.
+* Balancing architecture insights with a simple user experience.
+* Building a future prediction model that provides actionable guidance.
 
-Past Evolution
+Key Learnings:
 
-Present Architecture
-
-Future Risks
-
-This transforms repository analysis from a static experience into an intelligent conversation.
+* AI agents are significantly more useful when grounded with repository context.
+* Developers need guidance and explanations, not just metrics.
+* Repository evolution provides valuable signals for future technical debt.
+* GitHub Copilot accelerated both implementation and experimentation throughout development.
 
 ---
 
-## Built For
+# Why CodeCompass?
+
+Existing tools show what a repository looks like today.
+
+CodeCompass helps developers understand:
+
+* How the repository evolved.
+* Why architectural decisions matter.
+* What risks are emerging.
+* What should be improved next.
+
+It transforms repository analysis from a static dashboard into an AI-powered navigation experience.
+
+---
+
+# Built For
 
 Microsoft Agents League Hackathon 2026
 
@@ -220,12 +248,12 @@ Tracks:
 
 ---
 
-## Team
+# Contact Information
 
-Built with Angular, .NET, GitHub Copilot, and Microsoft AI technologies GitHub Copilot.
+ravicse052015@gmail.com
 
 ---
 
-### Navigate with Confidence. Build with Clarity.
+# Country/Region
 
-CodeCompass
+india
