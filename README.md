@@ -17,7 +17,7 @@ Ravidev01
 
 # Repository URL
 
-[https://github.com/YOUR_USERNAME/codecompass](https://github.com/Ravidev01/Code-Compass)
+https://github.com/Ravidev01/Code-Compass
 
 ---
 
@@ -146,7 +146,7 @@ Individual
 
 Clone repository
 
-git clone [https://github.com/YOUR_USERNAME/codecompass.git](https://github.com/Ravidev01/Code-Compass.git)
+git clone https://github.com/Ravidev01/Code-Compass
 
 Navigate to project
 
