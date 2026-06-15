@@ -1,59 +1,231 @@
 # CodeCompass
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.28.
+### Navigate Your Repository's Past, Present, and Future with AI
 
-## Development server
+CodeCompass is an AI-powered repository intelligence platform that helps developers understand complex codebases through architecture analysis, repository evolution tracking, dependency intelligence, and future risk prediction.
 
-To start a local development server, run:
+Built for the Microsoft Agents League Hackathon using Angular, .NET, and Microsoft AI technologies.
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Problem
 
-## Code scaffolding
+Modern software systems are becoming increasingly complex.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Developers spend significant time trying to understand:
 
-```bash
-ng generate component component-name
-```
+* Repository architecture
+* Dependency relationships
+* Historical code evolution
+* Technical debt accumulation
+* Future maintenance risks
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Traditional architecture diagrams and dependency graphs often become outdated and fail to provide actionable insights.
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+## Solution
 
-To build the project run:
+CodeCompass transforms repository analysis into an intelligent experience.
 
-```bash
-ng build
-```
+Instead of simply visualizing code, CodeCompass helps developers answer:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+* Where did this codebase come from?
+* What is happening today?
+* Where is it heading tomorrow?
 
-## Running unit tests
+Using AI-powered reasoning, CodeCompass provides architecture intelligence, evolution analysis, and future recommendations.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+## Features
 
-## Running end-to-end tests
+### Repository Analysis
 
-For end-to-end (e2e) testing, run:
+Analyze repositories using:
 
-```bash
-ng e2e
-```
+* GitHub Repository URL
+* Project Upload
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Automatically extract:
 
-## Additional Resources
+* Services
+* Dependencies
+* Repository Metrics
+* Health Indicators
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+### Architecture Map
+
+Visualize repository structure and service relationships.
+
+Understand:
+
+* Critical Dependencies
+* Service Coupling
+* Dependency Bottlenecks
+* Architecture Complexity
+
+---
+
+### Evolution Timeline
+
+Explore how the repository evolved over time.
+
+Track:
+
+* Service Growth
+* Dependency Changes
+* Technical Debt Trends
+* Architecture Evolution
+
+---
+
+### Future Insights
+
+Predict future repository risks using AI reasoning.
+
+Forecast:
+
+* Technical Debt Growth
+* Dependency Risk
+* Architecture Stability
+* High-Risk Services
+
+---
+
+### AI Navigator
+
+Powered by Microsoft AI technologies.
+
+Ask questions like:
+
+* What should I fix first?
+* Which service is most risky?
+* Explain this dependency chain.
+* Predict future architecture issues.
+* Recommend refactoring opportunities.
+
+The AI Navigator analyzes repository context and provides actionable recommendations.
+
+---
+
+## Architecture
+
+Frontend
+
+* Angular 20
+* TypeScript
+* Angular Signals
+* TailwindCSS
+* PrimeNG
+
+Backend
+
+* ASP.NET Core
+* REST APIs
+* Repository Analysis Engine
+
+AI Layer
+
+* Microsoft AI Foundry
+* Azure OpenAI
+* AI Navigator Agent
+
+---
+
+## Application Flow
+
+Repository Input
+
+↓
+
+Repository Analysis
+
+↓
+
+Architecture Intelligence
+
+↓
+
+Evolution Analysis
+
+↓
+
+Future Prediction
+
+↓
+
+AI Navigator Recommendations
+
+---
+
+## Use Cases
+
+### New Team Members
+
+Quickly understand unfamiliar repositories.
+
+### Software Architects
+
+Analyze dependency relationships and system complexity.
+
+### Engineering Managers
+
+Track repository health and technical debt trends.
+
+### Development Teams
+
+Identify risks before they become production issues.
+
+---
+
+## Future Roadmap
+
+* Live GitHub Integration
+* Pull Request Analysis
+* Multi-Repository Intelligence
+* Architecture Change Detection
+* Team Collaboration Insights
+* Automated Refactoring Recommendations
+* Multi-Agent Reasoning System
+
+---
+
+## Why CodeCompass?
+
+Most tools show the current state of a repository.
+
+CodeCompass goes further by helping developers understand:
+
+Past Evolution
+
+Present Architecture
+
+Future Risks
+
+This transforms repository analysis from a static experience into an intelligent conversation.
+
+---
+
+## Built For
+
+Microsoft Agents League Hackathon 2026
+
+Tracks:
+
+* Creative Apps
+* Reasoning Agents
+
+---
+
+## Team
+
+Built with Angular, .NET, GitHub Copilot, and Microsoft AI technologies.
+
+---
+
+### Navigate with Confidence. Build with Clarity.
+
+CodeCompass
