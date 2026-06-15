@@ -1,0 +1,73 @@
+<section class="city-engine-shell relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_15%,rgba(99,102,241,0.2),transparent_42%),radial-gradient(circle_at_85%_20%,rgba(14,165,233,0.16),transparent_42%),radial-gradient(circle_at_50%_100%,rgba(16,185,129,0.12),transparent_48%)]"></div>
+
+  <div class="relative z-20 mb-3 flex flex-wrap items-center justify-between gap-2">
+    <div class="inline-flex rounded-xl border border-white/10 bg-slate-900/60 p-1 text-xs text-slate-300">
+      <button
+        type="button"
+        class="rounded-lg px-3 py-1.5 transition"
+        [class.bg-indigo-500/80]="!isDayMode()"
+        [class.text-white]="!isDayMode()"
+        (click)="setDayMode(false)"
+      >
+        Night
+      </button>
+      <button
+        type="button"
+        class="rounded-lg px-3 py-1.5 transition"
+        [class.bg-emerald-500/80]="isDayMode()"
+        [class.text-white]="isDayMode()"
+        (click)="setDayMode(true)"
+      >
+        Day
+      </button>
+    </div>
+
+    <div class="text-[11px] text-slate-300">
+      Services: {{ data().districts.length }} | Dependencies: {{ data().roads.length }} | Flows: {{ activeVehicleCount() }}
+    </div>
+  </div>
+
+  <div #viewport class="city-engine-viewport relative z-10 h-[470px] overflow-hidden rounded-2xl border border-white/10 bg-slate-950/40">
+    <article
+      *ngFor="let card of districtCards()"
+      class="district-overlay-card"
+      [class.selected]="card.selected"
+      [style.left.px]="card.left"
+      [style.top.px]="card.top"
+    >
+      <div class="title-row">
+        <span class="icon">{{ card.icon }}</span>
+        <p class="name">{{ card.name }}</p>
+      </div>
+      <p class="subtitle">{{ card.subtitle }}</p>
+      <p class="health">Health: {{ card.health }}%</p>
+    </article>
+
+    <div
+      *ngIf="hoveredDistrict() as district"
+      class="pointer-events-none absolute left-4 top-4 z-30 min-w-56 rounded-xl border border-white/20 bg-slate-900/94 p-3 text-xs text-slate-100"
+    >
+      <p class="font-semibold text-white">{{ district.name }}</p>
+      <p>{{ district.subtitle }}</p>
+      <p class="mt-1">Repository Health: {{ district.health }}%</p>
+      <p>Dependencies: {{ district.dependencies }}</p>
+      <p>Dependency Traffic: {{ district.traffic }}</p>
+    </div>
+  </div>
+
+  <div class="engine-controls relative z-20 mx-auto mt-4 flex max-w-lg items-center justify-center gap-1 rounded-2xl border border-white/10 bg-slate-950/85 p-2 shadow-[0_0_35px_rgba(15,23,42,0.7)]">
+    <button type="button" (click)="zoomIn()">＋ Zoom</button>
+    <button type="button" (click)="zoomOut()">－ Zoom</button>
+    <button type="button" (click)="rotateCamera()">⟳ Rotate</button>
+    <button type="button" (click)="resetView()">◎ Reset</button>
+    <button type="button" (click)="focusSelection()">⌖ Focus</button>
+    <button type="button" (click)="toggleLayers()">▦ Layers</button>
+  </div>
+
+  <div class="relative z-20 mt-3 flex flex-wrap gap-4 text-xs text-slate-300">
+    <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span> Healthy Service</span>
+    <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-red-400"></span> Risky Service</span>
+    <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-slate-500"></span> Deprecated Service</span>
+  </div>
+</section>

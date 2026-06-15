@@ -1,0 +1,169 @@
+<section
+  class="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/70 p-5 shadow-[0_0_40px_rgba(77,124,254,0.22)] backdrop-blur-xl"
+  [class.city-reacting]="isReacting()"
+  [class.react-push]="reactionType() === 'push-code'"
+  [class.react-debt]="reactionType() === 'add-technical-debt'"
+  [class.react-tests]="reactionType() === 'add-tests'"
+  [class.react-refactor]="reactionType() === 'refactor-service'"
+>
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,rgba(108,92,231,0.2),transparent_45%),radial-gradient(circle_at_90%_30%,rgba(77,124,254,0.22),transparent_45%),radial-gradient(circle_at_50%_100%,rgba(168,85,247,0.16),transparent_45%)]"></div>
+
+  <div class="relative z-20 mb-4 flex items-center justify-between">
+    <div class="inline-flex rounded-xl border border-white/10 bg-slate-900/60 p-1 text-xs text-slate-300">
+      <button
+        type="button"
+        class="rounded-lg px-3 py-1.5 transition"
+        [class.bg-indigo-500/80]="mapMode() === '2D'"
+        [class.text-white]="mapMode() === '2D'"
+        (click)="setMode('2D')"
+      >
+        2D
+      </button>
+      <button
+        type="button"
+        class="rounded-lg px-3 py-1.5 transition"
+        [class.bg-indigo-500/80]="mapMode() === '3D'"
+        [class.text-white]="mapMode() === '3D'"
+        (click)="setMode('3D')"
+      >
+        3D
+      </button>
+    </div>
+    <button type="button" class="rounded-xl border border-white/10 bg-slate-900/70 p-2 text-slate-200 transition hover:border-indigo-400/70">
+      ✦
+    </button>
+  </div>
+
+  <div
+    #mapViewport
+    class="city-stage map-viewport relative z-10 h-[470px] overflow-hidden rounded-2xl border border-white/10 bg-slate-950/40"
+    [class.map-3d]="mapMode() === '3D'"
+    [class.dragging]="isDragging()"
+    (wheel)="onWheel($event)"
+    (mousedown)="startPan($event)"
+    (mousemove)="onPanMove($event)"
+    (mouseup)="endPan()"
+    (mouseleave)="endPan()"
+  >
+    <div class="map-world" [style.transform]="mapTransform()">
+      <svg class="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <ng-container *ngFor="let road of data().roads">
+        <line
+          *ngIf="getDistrict(road.from) && getDistrict(road.to)"
+          class="road-line"
+          [class.connected]="isRoadConnected(road)"
+          [class.highlighted]="isRoadHighlighted(road)"
+          [class.command-highlight]="isCommandRoad(road)"
+          [class.dimmed]="hoveredRoad() && !isRoadHighlighted(road)"
+          [attr.x1]="getDistrict(road.from)?.position?.x"
+          [attr.y1]="getDistrict(road.from)?.position?.y"
+          [attr.x2]="getDistrict(road.to)?.position?.x"
+          [attr.y2]="getDistrict(road.to)?.position?.y"
+          [attr.stroke]="roadColor(road.traffic)"
+          [attr.stroke-opacity]="isRoadHighlighted(road) ? '1' : hoveredRoad() ? '0.2' : isRoadConnected(road) ? '0.9' : '0.42'"
+          [attr.stroke-width]="isRoadHighlighted(road) ? '1.08' : isRoadConnected(road) ? '0.9' : '0.55'"
+          (mouseenter)="setHoveredRoad(road.id)"
+          (mouseleave)="setHoveredRoad(null)"
+          stroke-linecap="round"
+        ></line>
+
+        <line
+          *ngIf="shouldAnimateRoad(road)"
+          class="road-flow"
+          [class.high]="road.traffic === 'High'"
+          [class.medium]="road.traffic === 'Medium'"
+          [class.low]="road.traffic === 'Low'"
+          [class.command-highlight]="isCommandRoad(road)"
+          [attr.x1]="getDistrict(road.from)?.position?.x"
+          [attr.y1]="getDistrict(road.from)?.position?.y"
+          [attr.x2]="getDistrict(road.to)?.position?.x"
+          [attr.y2]="getDistrict(road.to)?.position?.y"
+          [attr.stroke]="roadColor(road.traffic)"
+          [style.animation-duration]="roadPulseDuration(road.traffic)"
+          stroke-linecap="round"
+        ></line>
+
+        <ng-container *ngIf="shouldShowParticles(road)">
+          <circle
+            *ngFor="let slot of particleSlots"
+            [class]="'traffic-particle ' + road.traffic.toLowerCase()"
+            [attr.r]="roadParticleRadius(road.traffic)"
+            [attr.fill]="roadParticleColor(road.traffic)"
+          >
+            <animateMotion
+              [attr.dur]="roadParticleDuration(road.traffic)"
+              [attr.begin]="roadParticleDelay(slot, road.traffic)"
+              repeatCount="indefinite"
+              [attr.path]="roadMotionPath(road)"
+            ></animateMotion>
+          </circle>
+        </ng-container>
+      </ng-container>
+      </svg>
+
+      <ng-container *ngFor="let district of data().districts">
+        <button
+          type="button"
+          class="district-chip"
+          [class.selected]="selectedDistrictId() === district.id"
+          [class.hovered]="hoveredDistrictId() === district.id"
+          [class.command-highlight]="isCommandDistrict(district)"
+          [class.dimmed]="shouldDimDistrict(district)"
+          [class.high-traffic]="isHighTrafficDistrict(district) && !isCommandDistrict(district)"
+          [class.high-risk]="isHighRiskDistrict(district) && !isCommandDistrict(district)"
+          [style.left.%]="district.position.x"
+          [style.top.%]="district.position.y"
+          [style.box-shadow]="districtShadow(district)"
+          (mouseenter)="setHoveredDistrict(district.id)"
+          (mouseleave)="setHoveredDistrict(null)"
+          (dblclick)="onDistrictDoubleClick($event, district)"
+          (click)="selectDistrict(district)"
+        >
+          <span class="mb-1 block text-sm">{{ district.icon }}</span>
+          <span class="block text-xs font-semibold text-white">{{ district.name }}</span>
+          <span class="block text-[10px] text-slate-300">{{ district.subtitle }}</span>
+        </button>
+      </ng-container>
+
+      <div
+        *ngIf="hoveredDistrict() as hovered"
+        class="absolute z-30 min-w-48 rounded-xl border border-white/15 bg-slate-900/95 p-3 text-xs text-slate-200 shadow-[0_0_26px_rgba(77,124,254,0.35)]"
+        [style.left.%]="hovered.position.x + 2"
+        [style.top.%]="hovered.position.y - 2"
+      >
+        <p class="font-semibold text-white">{{ hovered.name }}</p>
+        <p>Repository Health: {{ hovered.health }}%</p>
+        <p>Dependency Traffic: {{ hovered.traffic }}</p>
+        <p>Dependencies: {{ hovered.dependencies }}</p>
+        <p>Risk Level: {{ riskLevel(hovered) }}</p>
+        <p class="mt-1 italic text-indigo-200">{{ hovered.personality }}</p>
+      </div>
+
+      <div
+        *ngIf="hoveredRoad() as road"
+        class="absolute z-30 min-w-52 rounded-xl border border-white/15 bg-slate-900/95 p-3 text-xs text-slate-200 shadow-[0_0_26px_rgba(168,85,247,0.35)]"
+        [style.left.%]="roadTooltipLeft(road)"
+        [style.top.%]="roadTooltipTop(road)"
+      >
+        <p class="font-semibold text-white">Dependency Path</p>
+        <p>{{ roadSourceName(road) }} → {{ roadTargetName(road) }}</p>
+        <p>Dependency Traffic: {{ road.traffic }}</p>
+        <p>Call Volume: {{ road.trafficCount }}</p>
+      </div>
+    </div>
+
+    <div class="map-controls absolute right-3 top-3 z-40 flex flex-col gap-2">
+      <button type="button" (click)="zoomIn()" title="Zoom in">+</button>
+      <button type="button" (click)="zoomOut()" title="Zoom out">-</button>
+      <button type="button" (click)="focusSelectedDistrict()" title="Focus selected">◎</button>
+      <button type="button" (click)="resetView()" title="Reset view">↺</button>
+    </div>
+  </div>
+
+  <div class="relative z-20 mt-4 flex flex-wrap items-center gap-4 text-xs text-slate-300">
+    <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-red-500"></span> High Dependency Traffic</span>
+    <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-fuchsia-500"></span> Medium Dependency Traffic</span>
+    <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-blue-500"></span> Low Dependency Traffic</span>
+    <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-slate-500"></span> No Dependency Traffic</span>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+{
+  "cityName": "CodeCompass",
+  "health": 74,
+  "population": 1247,
+  "files": 1247,
+  "contributors": 23,
+  "districts": {
+    "authService": {
+      "criticality": 42
+    },
+    "paymentService": {
+      "traffic": "High"
+    },
+    "oldApis": {
+      "zone": "Deprecated Services"
+    }
+  },
+  "futureForecast": {
+    "withoutRefactor": 34,
+    "withRefactor": 87
+  }
+}

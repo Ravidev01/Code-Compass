@@ -1,0 +1,311 @@
+@use 'tailwindcss';
+
+:root {
+	color-scheme: dark;
+	--rv-bg: #050816;
+	--rv-card: rgba(15, 23, 42, 0.62);
+	--rv-border: rgba(255, 255, 255, 0.08);
+	--rv-primary: #6c5ce7;
+	--rv-secondary: #4d7cfe;
+	--rv-accent: #a855f7;
+	--rv-success: #22c55e;
+	--rv-warning: #f59e0b;
+	--rv-danger: #ef4444;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	min-height: 100%;
+	font-family: 'Sora', 'Segoe UI', sans-serif;
+	background: radial-gradient(circle at 10% 10%, rgba(77, 124, 254, 0.14), transparent 42%),
+		radial-gradient(circle at 86% 18%, rgba(168, 85, 247, 0.13), transparent 40%),
+		radial-gradient(circle at 40% 100%, rgba(108, 92, 231, 0.1), transparent 44%), var(--rv-bg);
+	color: #f8fafc;
+}
+
+button {
+	font-family: inherit;
+}
+
+.glass-panel {
+	border-radius: 16px;
+	border: 1px solid var(--rv-border);
+	background: var(--rv-card);
+	backdrop-filter: blur(18px);
+	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.015), 0 8px 35px rgba(14, 21, 38, 0.6),
+		0 0 40px rgba(77, 124, 254, 0.15);
+}
+
+.fade-up {
+	animation: fadeUp 210ms ease;
+}
+
+@keyframes fadeUp {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* District Animations */
+@keyframes districtPulse {
+	0%, 100% {
+		box-shadow: 0 0 20px rgba(108, 92, 231, 0.3), inset 0 0 20px rgba(108, 92, 231, 0.1);
+	}
+	50% {
+		box-shadow: 0 0 40px rgba(108, 92, 231, 0.6), inset 0 0 30px rgba(108, 92, 231, 0.2);
+	}
+}
+
+@keyframes districtHighTraffic {
+	0%, 100% {
+		box-shadow: 0 0 15px rgba(239, 68, 68, 0.4), inset 0 0 15px rgba(239, 68, 68, 0.15);
+	}
+	50% {
+		box-shadow: 0 0 30px rgba(239, 68, 68, 0.8), inset 0 0 25px rgba(239, 68, 68, 0.3);
+	}
+}
+
+@keyframes districtHighRisk {
+	0%, 100% {
+		box-shadow: 0 0 12px rgba(239, 68, 68, 0.3), inset 0 0 12px rgba(239, 68, 68, 0.1);
+	}
+	50% {
+		box-shadow: 0 0 28px rgba(239, 68, 68, 0.7), inset 0 0 20px rgba(239, 68, 68, 0.25);
+	}
+}
+
+@keyframes districtGlow {
+	0%, 100% {
+		filter: drop-shadow(0 0 8px rgba(108, 92, 231, 0.4));
+	}
+	50% {
+		filter: drop-shadow(0 0 16px rgba(108, 92, 231, 0.8));
+	}
+}
+
+@keyframes districtHoverLift {
+	0% {
+		transform: translateY(0) scale(1);
+	}
+	100% {
+		transform: translateY(-4px) scale(1.05);
+	}
+}
+
+/* Event Animations */
+@keyframes eventSlideIn {
+	from {
+		opacity: 0;
+		transform: translateX(-24px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes eventPulse {
+	0%, 100% {
+		opacity: 0.6;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 1;
+		transform: scale(1.08);
+	}
+}
+
+@keyframes severityPulse {
+	0%, 100% {
+		box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
+	}
+	50% {
+		box-shadow: 0 0 16px rgba(239, 68, 68, 0.7);
+	}
+}
+
+/* Metrics Counter Animation */
+@keyframes counterTick {
+	0% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 0.6;
+		transform: scale(1.1);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes metricGlow {
+	0%, 100% {
+		box-shadow: 0 0 10px rgba(108, 92, 231, 0.2);
+	}
+	50% {
+		box-shadow: 0 0 20px rgba(108, 92, 231, 0.5);
+	}
+}
+
+/* Button Animations */
+@keyframes buttonHoverGlow {
+	0%, 100% {
+		box-shadow: 0 0 8px rgba(108, 92, 231, 0.3);
+	}
+	50% {
+		box-shadow: 0 0 20px rgba(108, 92, 231, 0.7);
+	}
+}
+
+@keyframes buttonActive {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(0.98);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes ripple {
+	0% {
+		transform: scale(0);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(4);
+		opacity: 0;
+	}
+}
+
+/* Text & Content Animations */
+@keyframes slideInRight {
+	from {
+		opacity: 0;
+		transform: translateX(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes fadeInScale {
+	from {
+		opacity: 0;
+		transform: scale(0.95);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+/* Year Transition Animation */
+@keyframes yearPulse {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.1);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes yearGlow {
+	0%, 100% {
+		box-shadow: 0 0 12px rgba(108, 92, 231, 0.2);
+	}
+	50% {
+		box-shadow: 0 0 24px rgba(108, 92, 231, 0.6);
+	}
+}
+
+/* Ambient Background */
+@keyframes floatBg {
+	0%, 100% {
+		transform: translateY(0px) translateX(0px);
+	}
+	25% {
+		transform: translateY(-12px) translateX(8px);
+	}
+	50% {
+		transform: translateY(-24px) translateX(0px);
+	}
+	75% {
+		transform: translateY(-12px) translateX(-8px);
+	}
+}
+
+@keyframes ambientPulse {
+	0%, 100% {
+		opacity: 0.5;
+	}
+	50% {
+		opacity: 0.8;
+	}
+}
+
+/* Map & City Reactions */
+@keyframes cityPulseWave {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.02);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes districtCascade {
+	0% {
+		opacity: 0;
+		transform: scale(0.8);
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		transform: scale(1.3);
+	}
+}
+
+/* Traffic Flow */
+@keyframes trafficFlow {
+	0% {
+		stroke-dashoffset: 0;
+	}
+	100% {
+		stroke-dashoffset: 1.7;
+	}
+}
+
+@keyframes trafficPulse {
+	0%, 100% {
+		stroke-width: 0.55;
+		opacity: 0.42;
+	}
+	50% {
+		stroke-width: 0.8;
+		opacity: 0.8;
+	}
+}

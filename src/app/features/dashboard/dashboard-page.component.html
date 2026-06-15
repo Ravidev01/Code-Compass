@@ -1,0 +1,359 @@
+<div class="min-h-screen bg-[#050816] p-4 text-slate-100 lg:p-6" [class.calm-mode]="!pulseMode()">
+  <div class="mx-auto grid max-w-[1780px] grid-cols-1 gap-4 xl:grid-cols-[260px_minmax(720px,1fr)_360px]">
+    <aside class="glass-panel flex min-h-[calc(100vh-3rem)] flex-col p-4">
+      <div class="mb-6">
+        <p class="text-xl font-semibold text-white">🧭 CodeCompass</p>
+        <p class="text-xs text-slate-400">Navigate your repository's past, present, and future with AI.</p>
+      </div>
+
+      <button 
+        type="button" 
+        class="mb-5 rounded-xl bg-indigo-500 px-4 py-3 text-sm font-medium text-white transition duration-200 hover:bg-indigo-400 hover:shadow-[0_0_26px_rgba(108,92,231,0.55)] active:scale-95"
+        (click)="analyzeNewRepo()"
+      >
+        Analyze Repository
+      </button>
+
+      <nav class="space-y-2">
+        <button
+          *ngFor="let item of navItems; let i = index"
+          type="button"
+          class="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm transition duration-200 hover:bg-white/10"
+          [class.bg-white/10]="i === 0"
+          [class.text-white]="i === 0"
+          [class.text-slate-300]="i !== 0"
+        >
+          <span class="inline-flex items-center gap-2"><i [class]="navIcons[i]"></i>{{ item }}</span>
+          <span *ngIf="item === 'AI Navigator'" class="rounded-full bg-indigo-500 px-2 py-0.5 text-[10px]">New</span>
+        </button>
+      </nav>
+
+      <div class="mt-auto space-y-4">
+        <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
+          <p class="text-xs text-slate-400">Repository Health</p>
+          <p class="text-3xl font-semibold text-white">{{ currentSnapshot().health }}%</p>
+          <p class="text-xs text-emerald-400">+6% vs last analysis</p>
+        </div>
+
+        <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900/60 p-3">
+          <div>
+            <p class="text-sm text-white">Ravi</p>
+            <p class="text-xs text-slate-400">Developer</p>
+          </div>
+          <span class="grid h-9 w-9 place-content-center rounded-full bg-indigo-500/40">R</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="space-y-4">
+      <header class="glass-panel fade-up p-4">
+        <div class="mb-3">
+          <p class="text-2xl font-semibold text-white">CodeCompass</p>
+          <p class="text-sm text-slate-400">Repository Evolution Intelligence</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="rounded-xl border border-white/10 bg-slate-900/70 px-3 py-2 text-sm text-slate-200">{{ workspaceData().repository }}</div>
+          <div class="rounded-xl border border-white/10 bg-slate-900/70 px-3 py-2 text-xs text-slate-400">Last analyzed: {{ workspaceData().lastAnalyzed }}</div>
+          <button type="button" class="ml-auto rounded-xl bg-indigo-500 px-4 py-2 text-sm font-medium text-white">Share Report</button>
+          <button
+            type="button"
+            class="rounded-xl border border-white/10 bg-slate-900/70 px-3 py-2 text-sm text-slate-200 transition duration-200 hover:border-indigo-400/70"
+            (click)="togglePulseMode()"
+          >
+            {{ pulseMode() ? 'Neon Pulse' : 'Calm Mode' }}
+          </button>
+        </div>
+
+        <div class="mt-4 grid grid-cols-2 gap-3 xl:grid-cols-5">
+          <div class="stat-card">
+            <p>Total Files</p>
+            <h4>{{ workspaceData().stats.files | number }}</h4>
+          </div>
+          <div class="stat-card">
+            <p>Repository Age</p>
+            <h4>{{ workspaceData().stats.age }} Years</h4>
+          </div>
+          <div class="stat-card">
+            <p>Commits</p>
+            <h4>{{ workspaceData().stats.commits | number }}</h4>
+          </div>
+          <div class="stat-card">
+            <p>Contributors</p>
+            <h4>{{ workspaceData().stats.contributors }}</h4>
+          </div>
+          <div class="stat-card">
+            <p>Repository Health</p>
+            <h4>{{ currentSnapshot().health }}%</h4>
+          </div>
+        </div>
+
+        <div class="mt-4 rounded-2xl border border-white/10 bg-slate-900/55 p-3 transition" [attr.data-token]="yearToken()">
+          <div class="mb-2 flex items-center justify-between">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Evolution Timeline</p>
+            <p class="text-sm font-semibold text-white" [class.animate-pulse]="yearToken() > 0">{{ currentYear() }}</p>
+          </div>
+          <p class="mb-2 text-xs text-slate-400">Visualize repository evolution across time.</p>
+          <input type="range" min="2022" max="2030" [value]="currentYear()" (input)="setYear($event)" class="w-full accent-indigo-500 transition hover:accent-indigo-300" />
+          <div class="mt-2 flex items-center justify-between text-[11px] text-slate-500">
+            <span>Past</span>
+            <span>Present</span>
+            <span>Future</span>
+          </div>
+          <div class="mt-3 grid grid-cols-4 gap-2 text-xs">
+            <div class="rounded-lg border border-white/10 bg-slate-950/50 p-2 transition hover:border-sky-400/50 hover:bg-slate-900/70">
+              <p class="text-slate-400">Architecture Growth</p>
+              <p class="font-semibold text-white">{{ currentSnapshot().forecast }}%</p>
+            </div>
+            <div class="rounded-lg border border-white/10 bg-slate-950/50 p-2 transition hover:border-sky-400/50 hover:bg-slate-900/70">
+              <p class="text-slate-400">Dependency Changes</p>
+              <p class="font-semibold text-sky-300">{{ currentSnapshot().traffic }}</p>
+            </div>
+            <div class="rounded-lg border border-white/10 bg-slate-950/50 p-2 transition hover:border-red-400/50 hover:bg-slate-900/70">
+              <p class="text-slate-400">Technical Debt Growth</p>
+              <p class="font-semibold text-red-300">{{ currentSnapshot().risk }}</p>
+            </div>
+            <div class="rounded-lg border border-white/10 bg-slate-950/50 p-2 transition hover:border-emerald-400/50 hover:bg-slate-900/70">
+              <p class="text-slate-400">Repository Health Trends</p>
+              <p class="font-semibold text-emerald-300">{{ currentSnapshot().health }}%</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="simulation-panel mt-4 rounded-2xl border border-white/10 bg-slate-900/55 p-3">
+          <div class="mb-2 flex items-center justify-between">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Simulation Controls</p>
+            <span *ngIf="simulationBusy()" class="text-[11px] text-indigo-300">Applying...</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <button
+              *ngFor="let control of simulationButtons"
+              type="button"
+              class="sim-btn rounded-lg border border-white/10 bg-slate-950/50 px-3 py-2 text-left text-xs text-slate-200"
+              [disabled]="simulationBusy()"
+              (click)="runSimulation(control.action)"
+            >
+              {{ control.label }}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <section class="glass-panel fade-up p-4" style="animation-delay: 60ms;">
+        <h1 class="text-3xl font-semibold text-white">Repository Evolution Graph</h1>
+        <p class="mt-1 text-slate-400">Interactive visualization of service dependencies and architectural relationships.</p>
+
+        <div class="mt-3 inline-flex rounded-xl border border-white/10 bg-slate-900/60 p-1 text-xs text-slate-300">
+          <button
+            type="button"
+            class="rounded-lg px-3 py-1.5 transition"
+            [class.bg-indigo-500/80]="visualizationMode() === 'graph'"
+            [class.text-white]="visualizationMode() === 'graph'"
+            (click)="setVisualizationMode('graph')"
+          >
+            Architecture Map
+          </button>
+        </div>
+
+        <div class="mt-4">
+          <app-architecture-map
+            *ngIf="visualizationMode() === 'graph'"
+            [data]="workspaceData()"
+            [selectedDistrictId]="selectedDistrictId()"
+            [commandDistrictIds]="commandDistrictIds()"
+            [commandRoadIds]="commandRoadIds()"
+            [reactionToken]="mapReactionToken()"
+            [reactionType]="mapReactionType()"
+            (districtSelected)="selectDistrict($event.id)"
+          />
+        </div>
+      </section>
+
+      <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <article class="glass-panel fade-up p-4" style="animation-delay: 100ms;">
+          <h3 class="section-title">Repository Overview</h3>
+          <p>Total Files <span>{{ workspaceData().stats.files | number }}</span></p>
+          <p>Total Lines <span>{{ workspaceData().stats.totalLines | number }}</span></p>
+          <p>Languages <span>{{ workspaceData().stats.languages }}</span></p>
+          <p>Test Coverage <span>{{ workspaceData().stats.testCoverage }}%</span></p>
+        </article>
+
+        <article class="glass-panel fade-up p-4" style="animation-delay: 140ms;">
+          <h3 class="section-title">Architecture Risks</h3>
+          <p>High Debt Services <span class="text-red-400">{{ workspaceData().problems.highDebtDistricts }}</span></p>
+          <p>Abandoned Files <span class="text-amber-300">{{ workspaceData().problems.abandonedFiles }}</span></p>
+          <p>Complex Services <span class="text-orange-300">{{ workspaceData().problems.complexBuildings }}</span></p>
+          <p>Untested Services <span class="text-red-400">{{ workspaceData().problems.noTestBuildings }}</span></p>
+        </article>
+
+        <article class="glass-panel fade-up p-4" style="animation-delay: 180ms;">
+          <h3 class="section-title">Critical Dependencies</h3>
+          <p *ngFor="let dep of workspaceData().topDependencies; let i = index">
+            {{ i + 1 }}. {{ dep.from }} → {{ dep.to }}
+            <span>{{ dep.calls | number }} calls</span>
+          </p>
+        </article>
+
+        <article class="glass-panel fade-up p-4" style="animation-delay: 220ms;">
+          <h3 class="section-title text-sky-300">Future Insights</h3>
+          <p>Current Risk <span class="text-red-300">{{ currentSnapshot().risk }}%</span></p>
+          <p>6 Month Prediction <span>{{ currentSnapshot().forecast - 4 }}%</span></p>
+          <p>1 Year Prediction <span>{{ currentSnapshot().forecast }}%</span></p>
+          <p>Technical Debt Forecast <span class="text-amber-300">{{ 100 - currentSnapshot().forecast }}%</span></p>
+          <p>Architecture Stability Forecast <span class="text-emerald-300">{{ currentSnapshot().forecast }}%</span></p>
+        </article>
+      </section>
+    </main>
+
+    <aside class="space-y-4">
+      <section class="glass-panel fade-up p-4" style="animation-delay: 120ms;">
+        <div class="mb-3">
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Service Analysis</p>
+        </div>
+        <div class="mb-4 flex items-start justify-between">
+          <div>
+            <p class="text-xl font-semibold text-white">{{ selectedDistrict().name }}</p>
+            <p class="text-sm text-slate-400">Service Details · {{ selectedDistrict().subtitle }}</p>
+          </div>
+          <span class="text-2xl">{{ selectedDistrict().icon }}</span>
+        </div>
+
+        <p class="mb-4 text-sm text-slate-300">{{ selectedDistrict().description }}</p>
+        <p class="mb-4 rounded-xl border border-indigo-400/25 bg-indigo-500/10 px-3 py-2 text-xs italic text-indigo-200">{{ selectedDistrict().personality }}</p>
+
+        <div class="space-y-2 text-sm">
+          <div class="metric-row"><span>Files</span><strong>{{ selectedDistrict().files }}</strong></div>
+          <div class="metric-row"><span>Lines of Code</span><strong>{{ selectedDistrict().linesOfCode | number }}</strong></div>
+          <div class="metric-row"><span>Dependencies</span><strong>{{ selectedDistrict().dependencies }}</strong></div>
+          <div class="metric-row"><span>Dependents</span><strong>{{ selectedDistrict().dependents }}</strong></div>
+          <div class="metric-row"><span>Dependency Traffic</span><strong [class.text-red-400]="selectedDistrict().traffic === 'High'">{{ selectedDistrict().traffic }}</strong></div>
+          <div class="metric-row"><span>Risk Score</span><strong class="text-red-300">{{ selectedDistrict().criticality }}%</strong></div>
+          <div class="metric-row">
+            <span>Stability Score</span>
+            <strong class="text-emerald-400">{{ selectedDistrict().stability }}%</strong>
+          </div>
+        </div>
+
+        <div class="mt-5 rounded-xl border border-white/10 bg-slate-900/60 p-3">
+          <p class="mb-2 text-xs uppercase tracking-[0.18em] text-slate-500">Impact Analysis</p>
+          <p class="text-4xl font-semibold text-red-400">{{ selectedDistrict().criticality }}%</p>
+          <p class="mb-2 text-xs text-slate-400">repository impact score</p>
+          <div class="mb-3 h-12 overflow-hidden rounded-lg border border-white/10 bg-slate-950/70 p-2">
+            <div class="grid h-full grid-cols-8 items-end gap-1">
+              <span *ngFor="let bar of [20,32,18,45,28,35,30,42]" class="rounded-sm bg-gradient-to-t from-indigo-500 to-fuchsia-400" [style.height.%]="bar"></span>
+            </div>
+          </div>
+          <button type="button" class="w-full rounded-xl bg-indigo-500 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-400">
+            View Service Details
+          </button>
+        </div>
+
+        <div class="mt-4 rounded-xl border border-white/10 bg-slate-900/60 p-3">
+          <p class="mb-1 text-xs uppercase tracking-[0.18em] text-slate-500">Historical Changes</p>
+          <p class="text-xs text-slate-300">{{ selectedDistrict().name }} has shown {{ selectedDistrict().traffic }} dependency traffic with {{ selectedDistrict().complexity }}% complexity over recent snapshots.</p>
+        </div>
+
+        <div class="mt-4 rounded-xl border border-white/10 bg-slate-900/60 p-3">
+          <p class="mb-1 text-xs uppercase tracking-[0.18em] text-slate-500">Future Risk Prediction</p>
+          <p class="text-xs text-slate-300">Projected risk for {{ selectedDistrict().name }} remains {{ selectedDistrict().criticality }}% unless dependencies are reduced and tests are expanded.</p>
+        </div>
+      </section>
+
+      <section class="glass-panel fade-up p-4" style="animation-delay: 160ms;">
+        <div class="mb-3 flex items-center justify-between">
+          <h3 class="text-sm font-semibold text-white">Repository Activity Feed</h3>
+          <span class="text-xs text-slate-500">Newest first</span>
+        </div>
+
+        <div *ngIf="feedBusy()" class="space-y-2">
+          <div *ngFor="let idx of [1, 2, 3]" class="h-16 animate-pulse rounded-xl border border-white/10 bg-slate-900/50"></div>
+        </div>
+
+        <div *ngIf="!feedBusy() && eventFeed().length === 0" class="rounded-xl border border-dashed border-white/15 bg-slate-900/50 p-4 text-xs text-slate-400">
+          No repository events yet. Run a scenario to generate activity.
+        </div>
+
+        <div *ngIf="!feedBusy() && eventFeed().length > 0" class="space-y-2">
+          <article *ngFor="let event of eventFeed(); let i = index" class="event-item rounded-xl border border-white/10 bg-slate-900/60 p-3" [style.animation-delay.ms]="i * 35">
+            <div class="flex items-center justify-between">
+              <p class="text-xs font-semibold text-white">{{ event.title }}</p>
+              <p class="text-[11px]" [class]="eventSeverityClass(event.severity)">{{ event.severity }}</p>
+            </div>
+            <p class="mt-1 text-xs text-slate-300">{{ event.detail }}</p>
+            <p class="mt-1 text-[11px] text-slate-500">{{ event.district }} · {{ event.timestamp }}</p>
+          </article>
+        </div>
+      </section>
+
+      <div class="sticky bottom-4">
+        <!-- AI Navigator Floating Button -->
+        <button
+          type="button"
+          class="mb-4 w-full rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-4 py-3 text-center font-semibold text-white transition hover:shadow-[0_0_30px_rgba(99,102,241,0.5)]"
+          (click)="toggleNavigatorPanel()"
+        >
+          💬 Ask AI Navigator
+        </button>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<aside class="district-drawer" [class.open]="drawerOpen()">
+  <div class="mb-4 flex items-center justify-between">
+    <h3 class="text-lg font-semibold text-white">{{ selectedDistrict().name }}</h3>
+    <button type="button" class="rounded-lg border border-white/10 px-3 py-1 text-xs text-slate-300" (click)="closeDrawer()">Close</button>
+  </div>
+
+  <p class="mb-3 text-sm text-slate-300">{{ selectedDistrict().description }}</p>
+  <p class="mb-3 rounded-xl border border-indigo-400/25 bg-indigo-500/10 px-3 py-2 text-xs italic text-indigo-200">{{ selectedDistrict().personality }}</p>
+
+  <div class="mb-4 grid grid-cols-2 gap-2 text-xs">
+    <div class="rounded-lg border border-white/10 bg-slate-900/60 p-2">Repository Health <strong class="float-right text-white">{{ selectedDistrict().health }}%</strong></div>
+    <div class="rounded-lg border border-white/10 bg-slate-900/60 p-2">Dependency Traffic <strong class="float-right text-white">{{ selectedDistrict().traffic }}</strong></div>
+    <div class="rounded-lg border border-white/10 bg-slate-900/60 p-2">Dependencies <strong class="float-right text-white">{{ selectedDistrict().dependencies }}</strong></div>
+    <div class="rounded-lg border border-white/10 bg-slate-900/60 p-2">Dependents <strong class="float-right text-white">{{ selectedDistrict().dependents }}</strong></div>
+  </div>
+
+  <div class="mb-4">
+    <p class="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Dependencies</p>
+    <div *ngIf="selectedDistrictRoads().length === 0" class="rounded-lg border border-dashed border-white/15 bg-slate-900/45 p-3 text-xs text-slate-500">
+      No active dependencies in this service.
+    </div>
+    <div *ngIf="selectedDistrictRoads().length > 0" class="space-y-1 text-sm text-slate-300">
+      <p *ngFor="let road of selectedDistrictRoads()">
+        {{ road.from === selectedDistrictId() ? selectedDistrict().name : districtNameById(road.from) }}
+        →
+        {{ road.to === selectedDistrictId() ? selectedDistrict().name : districtNameById(road.to) }}
+        <span class="text-xs text-slate-500">({{ road.traffic }} · {{ road.trafficCount }})</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <p class="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Connected Services</p>
+    <div *ngIf="connectedDistricts().length === 0" class="rounded-lg border border-dashed border-white/15 bg-slate-900/45 p-3 text-xs text-slate-500">
+      No connected services detected.
+    </div>
+    <div *ngIf="connectedDistricts().length > 0" class="flex flex-wrap gap-2">
+      <span *ngFor="let district of connectedDistricts()" class="rounded-full border border-white/10 bg-slate-900/60 px-2 py-1 text-xs text-slate-200">{{ district.name }}</span>
+    </div>
+  </div>
+
+  <div>
+    <p class="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Recommendations</p>
+    <ul class="space-y-2 text-sm text-slate-300">
+      <li *ngFor="let rec of districtRecommendations()" class="rounded-lg border border-white/10 bg-slate-900/55 p-2">{{ rec }}</li>
+    </ul>
+  </div>
+</aside>
+
+<aside class="navigator-panel-drawer" [class.open]="navigatorPanelOpen()">
+  <app-ai-navigator-panel
+    [suggestions]="navigatorSuggestions"
+    [activeCommand]="activeNavigatorCommand()"
+    [navigatorResponse]="navigatorResponse()"
+    (commandTriggered)="handleNavigatorCommand($event)"
+  />
+  <button type="button" class="absolute right-4 top-4 rounded-lg border border-white/10 px-3 py-1 text-xs text-slate-300 hover:border-white/30" (click)="closeNavigatorPanel()">✕</button>
+</aside>

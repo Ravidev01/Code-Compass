@@ -1,0 +1,84 @@
+:host {
+  display: block;
+}
+
+.city-engine-shell {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03), 0 0 36px rgba(14, 165, 233, 0.12);
+}
+
+.city-engine-viewport {
+  cursor: crosshair;
+}
+
+.city-engine-viewport canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.district-overlay-card {
+  position: absolute;
+  z-index: 22;
+  min-width: 12rem;
+  max-width: 16rem;
+  transform: translate(-50%, -100%);
+  border-radius: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(180deg, rgba(10, 18, 36, 0.94), rgba(15, 23, 42, 0.82));
+  padding: 0.55rem 0.65rem;
+  box-shadow: 0 0 30px rgba(15, 23, 42, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+  backdrop-filter: blur(6px);
+}
+
+.district-overlay-card.selected {
+  border-color: rgba(96, 165, 250, 0.75);
+  box-shadow: 0 0 28px rgba(96, 165, 250, 0.45);
+}
+
+.district-overlay-card .title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.district-overlay-card .icon {
+  font-size: 0.85rem;
+}
+
+.district-overlay-card .name {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.district-overlay-card .subtitle {
+  margin: 0.08rem 0 0;
+  color: #a5b4fc;
+  font-size: 0.7rem;
+  line-height: 1.1;
+}
+
+.district-overlay-card .health {
+  margin: 0.16rem 0 0;
+  color: #86efac;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.engine-controls button {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(15, 23, 42, 0.7);
+  color: #e2e8f0;
+  font-size: 0.74rem;
+  border-radius: 0.7rem;
+  padding: 0.5rem 0.78rem;
+  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.engine-controls button:hover {
+  border-color: rgba(99, 102, 241, 0.75);
+  background: rgba(30, 41, 59, 0.88);
+  transform: translateY(-1px);
+}
