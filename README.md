@@ -100,8 +100,7 @@ before they become costly engineering problems.
 # Demo Video or Screenshots
 
 Demo Video:
-
-Include YouTube demo link here: 
+https://youtu.be/4ft6Jyt5feA
 
 ---
 
