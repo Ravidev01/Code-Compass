@@ -222,7 +222,7 @@ Tracks:
 
 ## Team
 
-Built with Angular, .NET, GitHub Copilot, and Microsoft AI technologies.
+Built with Angular, .NET, GitHub Copilot, and Microsoft AI technologies GitHub Copilot.
 
 ---
 
