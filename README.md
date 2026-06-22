@@ -98,6 +98,12 @@ before they become costly engineering problems.
 ---
 
 # Demo Video or Screenshots
+<img width="1804" height="993" alt="Screenshot 2026-06-15 100254" src="https://github.com/user-attachments/assets/29ed9c52-bf37-4957-a0a8-d30e5f7f8124" />
+
+<img width="1595" height="917" alt="Screenshot 2026-06-15 103308" src="https://github.com/user-attachments/assets/1c787b9b-47e4-4a0f-bf4b-1ab04a4c50fd" />
+
+<img width="1020" height="755" alt="Screenshot 2026-06-15 100454" src="https://github.com/user-attachments/assets/204bb0f3-1b8b-4a2b-a513-44df6454ea24" />
+
 
 Demo Video:
 https://youtu.be/4ft6Jyt5feA
